@@ -1,7 +1,9 @@
 ## Adam
 
 Cyan: gradient descent
+
 Magenta: adam
+
 ![demo](demo.gif)
 
 ## build

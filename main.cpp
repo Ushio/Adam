@@ -178,6 +178,8 @@ int main() {
         static float alpha = 0.1f;
         static float beta1 = 0.9f;
         static float beta2 = 0.999f;
+        static float beta1t = beta1;
+        static float beta2t = beta2;
         static float e = 0.00000001f;
         for (int i = 0; i < points.size(); ++i)
         {
@@ -188,9 +190,12 @@ int main() {
             glm::vec2 dp = glm::vec2(dfdx(x, y), dfdy(x, y) );
             o.adam_m = beta1 * o.adam_m + (1.0f - beta1) * dp;
             o.adam_v = beta2 * o.adam_v + (1.0f - beta2) * (dp * dp);
-            glm::vec2 adam_m_hat = o.adam_m / ( 1.0f - beta1 );
-            glm::vec2 adam_v_hat = o.adam_v / ( 1.0f - beta2 );
+            glm::vec2 adam_m_hat = o.adam_m / ( 1.0f - beta1t);
+            glm::vec2 adam_v_hat = o.adam_v / ( 1.0f - beta2t);
             o.adam_p = o.adam_p - alpha * adam_m_hat / ( glm::sqrt( adam_v_hat ) + glm::vec2(e, e) );
+
+            beta1t *= beta1;
+            beta2t *= beta2;
         }
 
         PopGraphicState();

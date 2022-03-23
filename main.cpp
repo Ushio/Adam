@@ -175,7 +175,7 @@ int main() {
         }
 
         // optimize Adam
-        static float alpha = 0.1f;
+        static float alpha = 0.2f;
         static float beta1 = 0.9f;
         static float beta2 = 0.999f;
         static float beta1t = beta1;
@@ -193,10 +193,9 @@ int main() {
             glm::vec2 adam_m_hat = o.adam_m / ( 1.0f - beta1t);
             glm::vec2 adam_v_hat = o.adam_v / ( 1.0f - beta2t);
             o.adam_p = o.adam_p - alpha * adam_m_hat / ( glm::sqrt( adam_v_hat ) + glm::vec2(e, e) );
-
-            beta1t *= beta1;
-            beta2t *= beta2;
         }
+        beta1t *= beta1;
+        beta2t *= beta2;
 
         PopGraphicState();
         EndCamera();
